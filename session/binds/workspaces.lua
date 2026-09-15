@@ -48,38 +48,38 @@ local function move_workspace_to(target)
     hl.dispatch(hl.dsp.focus({ workspace = target }))
 end
 
--- The lowest empty workspace belonging to this monitor. Hyprland's "emptym"
--- selector is unusable here: it reuses an empty workspace sitting on another
--- display, which defeats the point of the bind.
-local function empty_workspace_on(mon)
+-- The lowest workspace on this monitor that holds no windows.
+--
+-- Scanning for *existing* empty workspaces cannot work: Hyprland destroys a
+-- workspace the moment its last window leaves it, so the only one that survives is
+-- the monitor's own displayed workspace and a max_id+1 fallback then climbed on
+-- every press. Scan for the lowest id that is neither occupied nor pinned to
+-- another display instead, so a low id is reused as soon as its window moves away.
+-- This is also why Hyprland's own "emptym" selector is unusable: it happily reuses
+-- an empty workspace sitting on a different display.
+local function lowest_free_workspace_on(mon)
     if not mon then
         return nil
     end
 
-    local used, empty_here, max_id = {}, {}, 0
+    local occupied, owner = {}, {}
     for _, w in ipairs(hl.get_workspaces()) do
         if not w.special then
-            used[w.id] = true
-            if w.id > max_id then
-                max_id = w.id
+            if w.windows > 0 then
+                occupied[w.id] = true
             end
-            if w.monitor and w.monitor.id == mon.id and w.windows == 0 then
-                empty_here[#empty_here + 1] = w.id
+            if w.monitor then
+                owner[w.id] = w.monitor.id
             end
         end
     end
 
-    table.sort(empty_here)
-    if empty_here[1] then
-        return empty_here[1]
+    local id = 1
+    while occupied[id] or (owner[id] and owner[id] ~= mon.id) do
+        id = id + 1
     end
 
-    local fresh = math.max(max_id + 1, 4)
-    while used[fresh] do
-        fresh = fresh + 1
-    end
-
-    return fresh
+    return id
 end
 
 function M.apply(cfg)
@@ -97,7 +97,7 @@ function M.apply(cfg)
     hl.bind("CTRL + ALT + Tab",      hl.dsp.focus({ workspace = "m+1" }))
 
     hl.bind(mod .. " + CTRL + Down", function()
-        local target = empty_workspace_on(source_monitor())
+        local target = lowest_free_workspace_on(source_monitor())
         if target then
             send_active_to(target)
         end
