@@ -1,0 +1,10 @@
+# Noctalia's generated palette module; written by the shell, not by hand.
+noctalia.lua
+
+# Machine state, not configuration.
+state.toml
+notification_history.json
+usage_counts.json
+recently_used.json
+plugin-cache/
+plugins/

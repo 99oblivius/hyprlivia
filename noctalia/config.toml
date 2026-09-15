@@ -1,0 +1,75 @@
+# livia's Noctalia shell config.
+#
+# Noctalia merges every *.toml in this directory alphabetically, then layers
+# ~/.local/state/noctalia/settings.toml (GUI-managed) on top. Values written
+# from the Settings UI land in settings.toml and shadow anything set here — so a
+# setting that must not drift via the GUI belongs here, and one that the GUI
+# already owns should be edited in the GUI instead of duplicated here.
+
+[shell]
+# Noctalia's own polkit agent defaults to FALSE, which leaves the session with
+# no authentication agent at all: polkit-gnome was removed along with the ML4W
+# config, so pkexec and GUI privilege prompts fail with "Error creating textual
+# authentication agent". Enabling this hands org.freedesktop.PolicyKit1 to
+# Noctalia, which is the intended replacement.
+polkit_agent = true
+
+# Translucent Settings window. The docs note that compositor blur applies via a
+# compositor rule — the noctalia-* layer rule in ~/.config/hypr/hyprland.lua
+# already covers panel surfaces, and this makes the Settings window itself
+# translucent so that blur has a surface to work on.
+settings_window_translucent = true
+
+[shell.panel]
+# solid | soft | glass.
+#   solid = cards opaque, floating panels solid
+#   soft  = floating panels lightly translucent, cards subtly translucent
+#   glass = both visibly translucent, with card opacity clamped high enough for
+#           text to stay readable
+transparency_mode = "glass"
+
+[bar.default]
+# 0.0 fully transparent — 1.0 fully opaque. Live bar surface is
+# noctalia-bar-default, so `default` is the right name.
+#
+# The docs warn that a highly transparent bar can show a hairline seam where an
+# attached panel (the Control Center) meets it, since there is nothing opaque
+# behind the join. Deliberately left at the default panel_overlap so the seam
+# can be judged on-screen first; raise panel_overlap or move the panel to
+# floating placement if it becomes distracting.
+background_opacity = 0.85
+
+[brightness]
+# DDC/CI support is OPT-IN and defaults to false. Without this, Noctalia only
+# queries the kernel sysfs backlight interface, which a desktop has none of —
+# so the brightness widget renders nothing and `noctalia msg brightness-up`
+# reports "brightness control unavailable".
+#
+# The monitors are DDC/CI-capable and verified reachable: `ddcutil detect` finds
+# all three (HDMI-A-2 on /dev/i2c-13, DP-4 on /dev/i2c-14, DP-6), and livia is
+# in group `i2c` so /dev/i2c-* is readable without root.
+#
+# Discovery only — it does not force every monitor onto ddcutil. The per-monitor
+# tables below pick the backend explicitly, matching the bar's connector rules.
+enable_ddcutil = true
+
+# Sync every monitor to one brightness value on change. Off: the three panels
+# have different characteristics, and the old brightness tool addressed them
+# individually.
+sync_all_monitors = false
+
+# Keep screens from being driven fully dark, which is unrecoverable if the DDC
+# path then fails. 0.0 disables the floor.
+minimum_brightness = 0.05
+
+# Explicitly pin each output to DDC, by EDID description rather than connector:
+# the NVIDIA driver renumbers DP-*/HDMI-A-* between boots, which is the same
+# reason the monitors block in hyprland.lua matches on description.
+[brightness.monitor."Dell Inc. Dell AW2721D"]
+backend = "ddcutil"
+
+[brightness.monitor."AOC AG271QG"]
+backend = "ddcutil"
+
+[brightness.monitor."AOC AG241QG4"]
+backend = "ddcutil"

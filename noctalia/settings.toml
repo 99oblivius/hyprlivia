@@ -1,0 +1,319 @@
+config_version = 14
+
+[bar.default]
+background_opacity = 0.669999985024333
+center = [ "cpu", "ram", "network_rx", "network_tx" ]
+concave_edge_corners = false
+end = [ "widget", "tray", "clock" ]
+hover_highlight = false
+margin_ends = 0
+radius = 0
+shadow = false
+start = [
+    "session",
+    "workspaces",
+    "audio_visualizer",
+    "brightness",
+    "notifications",
+    "volume",
+    "input_volume",
+    "bar",
+    "recorder",
+    "ambient-sounds",
+    "ocr"
+]
+widget_spacing = 3
+
+[control_center]
+width = 750
+
+[desktop_widgets]
+enabled = false
+schema_version = 2
+widget_order = [ "desktop-widget-0000000000000001", "desktop-widget-0000000000000002" ]
+
+    [desktop_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [desktop_widgets.widget.desktop-widget-0000000000000001]
+    box_height = 1264.0
+    box_width = 2384.0
+    cx = 1280.0
+    cy = 736.0
+    output = "DP-6"
+    placement_height = 1440.0
+    placement_width = 2560.0
+    rotation = 0.0
+    type = "clock"
+
+        [desktop_widgets.widget.desktop-widget-0000000000000001.settings]
+        background = false
+        background_color = "on_primary"
+        background_opacity = 0.20999999999999999
+        background_padding = 0
+        background_radius = 21
+        center_text = true
+        clock_style = "digital"
+        font_family = "Maple Mono NF CN ExtraLight"
+        shadow = true
+
+    [desktop_widgets.widget.desktop-widget-0000000000000002]
+    box_height = 1440.0
+    box_width = 2560.0
+    cx = 1280.0
+    cy = 720.0
+    output = "DP-4"
+    placement_height = 1440.0
+    placement_width = 2560.0
+    rotation = 0.0
+    type = "clock"
+
+        [desktop_widgets.widget.desktop-widget-0000000000000002.settings]
+        background = false
+
+[idle]
+behavior_order = [ "lock", "lock-and-suspend", "screen-off" ]
+
+    [idle.behavior.lock]
+    action = "lock"
+    enabled = false
+    timeout = 600.0
+
+    [idle.behavior.lock-and-suspend]
+    action = "lock_and_suspend"
+    enabled = true
+    timeout = 1800.0
+
+    [idle.behavior.screen-off]
+    action = "screen_off"
+    enabled = true
+    timeout = 3600.0
+
+[location]
+auto_locate = true
+
+[lockscreen_widgets]
+enabled = false
+schema_version = 2
+widget_order = [ "lockscreen-login-box@DP-6", "lockscreen-login-box@DP-4", "lockscreen-login-box@HDMI-A-2" ]
+
+    [lockscreen_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-4"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 1280.0
+    cy = 1258.0
+    output = "DP-4"
+    placement_height = 1440.0
+    placement_width = 2560.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-4".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@DP-6"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 1280.0
+    cy = 1258.0
+    output = "DP-6"
+    placement_height = 1440.0
+    placement_width = 2560.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@DP-6".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-2"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 1280.0
+    cy = 1258.0
+    output = "HDMI-A-2"
+    placement_height = 1440.0
+    placement_width = 2560.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-2".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+[nightlight]
+enabled = true
+
+[notification]
+monitors = [ "DP-6" ]
+
+[osd]
+monitors = [ "DP-6" ]
+
+    [osd.kinds]
+    media = false
+    privacy = false
+
+[plugin_settings."noctalia/world_clock"]
+panel_position = "center"
+
+[plugin_settings."yuuto/arch-updater"]
+aur_helper = "paru"
+auto_check_hours = 24
+hide_polkit_hint = true
+panel_open_near_click = false
+panel_placement = "floating"
+show_activity_graph = true
+
+[plugins]
+enabled = [
+    "noctalia/kaomoji",
+    "noctalia/notes",
+    "noctalia/timer",
+    "noctalia/screen_recorder",
+    "noctalia/translator",
+    "noctalia/wallpaper_depth",
+    "noctalia/world_clock",
+    "yuuto/arch-updater",
+    "reaperhound/ambient-sounds",
+    "oldirtty/color_picker",
+    "liamwh/emoji-picker",
+    "fel/ocr",
+    "radimous/prismlauncher-instances"
+]
+
+[shell]
+clipboard_auto_paste = "off"
+show_location = false
+
+    [shell.launcher]
+    app_grid = true
+    categories = false
+    compact = true
+
+    [shell.panel]
+    clipboard_position = "top_right"
+    control_center_placement = "floating"
+    open_near_click_control_center = true
+    open_near_click_session = true
+    polkit_placement = "attached"
+    session_placement = "floating"
+    shadow = false
+    wallpaper_placement = "floating"
+    wallpaper_position = "top_left"
+
+    [shell.screenshot]
+    directory = "/home/livia/Pictures/Screenshots"
+
+    [shell.session]
+    grid_columns = 1
+
+    [shell.window_switcher]
+    mru = true
+
+[theme]
+builtin = "Noctalia"
+community_palette = "Rose Pine Moon"
+mode = "dark"
+source = "wallpaper"
+wallpaper_scheme = "faithful"
+
+    [theme.templates]
+    builtin_ids = [ "alacritty", "btop", "cava", "gtk3", "gtk4", "ghostty", "hyprland", "kcolorscheme", "kitty", "qt" ]
+
+[wallpaper]
+directory = "/home/livia/Pictures/Wallpapers"
+transition = [ "honeycomb" ]
+
+    [wallpaper.default]
+    path = "/home/livia/Pictures/Wallpapers/ilya-kuvshinov-img-8631.webp"
+
+    [wallpaper.last]
+    path = "/home/livia/Pictures/Wallpapers/Dropped Image (2).png"
+
+    [wallpaper.monitors.DP-4]
+    path = "/home/livia/Pictures/Wallpapers/Dropped Image (3).png"
+
+    [wallpaper.monitors.DP-6]
+    path = "/home/livia/Pictures/Wallpapers/Dropped Image (2).png"
+
+    [wallpaper.monitors.HDMI-A-2]
+    path = "/home/livia/Pictures/Wallpapers/Dropped Image.png"
+
+    [[wallpaper.favorite]]
+    palette_source = "wallpaper"
+    path = "/home/livia/Pictures/Wallpapers/ilya-kuvshinov-img-8631.webp"
+    theme_mode = "auto"
+    wallpaper_scheme = "faithful"
+
+[widget.ambient-sounds]
+type = "reaperhound/ambient-sounds:ambient-sounds"
+
+[widget.audio_visualizer]
+bands = 30
+color_1 = "hover"
+mirrored = false
+show_when_idle = true
+width = 50
+
+[widget.bar]
+type = "noctalia/wallpaper_depth:bar"
+
+[widget.clock]
+format = "{:%F %H:%M}"
+
+[widget.media]
+album_art_only = true
+
+[widget.ocr]
+type = "fel/ocr:ocr"
+
+[widget.recorder]
+type = "noctalia/screen_recorder:recorder"
+
+[widget.widget]
+type = "yuuto/arch-updater:widget"
